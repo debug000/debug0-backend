@@ -8,7 +8,6 @@ export interface IUser {
   image?: string | null;
   name?: string | null;
   email?: string | null;
-  accessToken: string;
   registeredAs: string;
   githubUsername: string;
   projectUrl?: string | null;
@@ -27,7 +26,6 @@ export interface IUser {
  * @param image - User Image URL
  * @param name - User name
  * @param email - User email id
- * @param accessToken - Encrypted user access token
  * @param registeredAs - User registered as maintainer/contributor
  * @param githubUsername - GitHub username of the User
  * @param projectUrl - URL of the user's project (if applicable)
@@ -48,7 +46,6 @@ const userSchema = new Schema<IUser>({
     type: String,
     // validate: [validator.isEmail, "Invalid email address"],
   },
-  accessToken: { type: String, required: true },
   registeredAs: { type: String, required: true },
   githubUsername: { type: String, required: true },
   projectUrl: { type: String },
