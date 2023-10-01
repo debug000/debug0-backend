@@ -12,6 +12,10 @@ router.use(authCheck);
 
 router.get("/", userController.sendUserDetails);
 
+// POST
+router.post("/updateUserPR", userController.updatePullRequestsForAllUsers);
+
+
 export {};
 
 module.exports = router;

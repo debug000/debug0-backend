@@ -3,6 +3,7 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import cors from "cors";
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
@@ -14,9 +15,14 @@ const app = express();
 
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
-  max: 50000,
+  max: 5000,
   message: "Too many requests from this IP, please try again after 15 minutes",
 });
+
+const allowedOrigins: string[] = [
+  process.env.FRONTEND_URL as string,
+  process.env.BACKEND_URL as string,
+];
 
 app.use(apiLimiter);
 app.use(
@@ -25,7 +31,7 @@ app.use(
   })
 );
 
-app.use(cors());
+app.use(cors({ origin: allowedOrigins }));
 app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 5000;
