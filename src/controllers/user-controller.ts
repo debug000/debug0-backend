@@ -33,7 +33,7 @@ const fetchAllPullRequests = async (githubUsername: string) => {
   let page = 1;
   const allPullRequests: any[] = [];
 
-  const octoberFirst2023 = new Date("2020-10-01T00:00:00Z");
+  const octoberFirst2023 = new Date("2023-10-01T00:00:00Z");
 
   while (true) {
     try {
