@@ -66,7 +66,6 @@ const userGitHubAuthorization = async (req: any, res: any) => {
         image: userDetails.avatar_url,
         name: userDetails.name,
         email: userDetails.email,
-        accessToken: hashedAccessToken,
         registeredAs: registeredAs,
         githubUsername: userDetails.login,
       });
