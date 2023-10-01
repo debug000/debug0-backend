@@ -3,7 +3,6 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import cors from "cors";
 import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
@@ -12,6 +11,8 @@ const authRequest = require("./routes/auth-routes");
 const userRequest = require("./routes/user-routes");
 
 const app = express();
+
+app.set("trust proxy", true);
 
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
@@ -25,11 +26,19 @@ const allowedOrigins: string[] = [
 ];
 
 app.use(apiLimiter);
-app.use(
-  helmet({
-    contentSecurityPolicy: process.env.NODE_ENV === "production" ? true : false,
-  })
-);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+        },
+      },
+    })
+  );
+}
 
 app.use(cors({ origin: allowedOrigins }));
 app.use(bodyParser.json());
