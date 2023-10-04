@@ -54,7 +54,7 @@ const sendEmail = async (email: string) => {
             `,
     });
   } catch (error: any) {
-    console.error("Error while sending the email.", error.message);
+    console.error(error.message);
     throw new Error("Error in sending the mail.");
   }
 };

@@ -23,6 +23,7 @@ const apiLimiter = rateLimit({
 const allowedOrigins: string[] = [
   process.env.FRONTEND_URL as string,
   process.env.BACKEND_URL as string,
+  process.env.FRONTEND_DEV_URL as string,
 ];
 
 app.use(apiLimiter);
