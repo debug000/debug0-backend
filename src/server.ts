@@ -12,7 +12,7 @@ const userRequest = require("./routes/user-routes");
 
 const app = express();
 
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
@@ -23,6 +23,7 @@ const apiLimiter = rateLimit({
 const allowedOrigins: string[] = [
   process.env.FRONTEND_URL as string,
   process.env.BACKEND_URL as string,
+  process.env.FRONTEND_DEV_URL as string,
 ];
 
 app.use(apiLimiter);
