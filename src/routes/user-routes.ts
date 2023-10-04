@@ -6,6 +6,8 @@ const authCheck = require("../middleware/auth-check");
 //controller
 const userController = require("../controllers/user-controller");
 
+router.post("/contact", userController.contact);
+
 router.use(authCheck);
 
 // GET
@@ -14,7 +16,6 @@ router.get("/", userController.sendUserDetails);
 
 // POST
 router.post("/updateUserPR", userController.updatePullRequestsForAllUsers);
-
 
 export {};
 

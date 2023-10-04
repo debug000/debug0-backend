@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 const axios = require("axios");
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+const sendEmail = require("../utils/nodemailer");
 
 //models
 import { User } from "../models/user";
@@ -121,7 +122,19 @@ const updatePullRequestsForAllUsers = async (req: any, res: any) => {
   }
 };
 
+const contact = async (req: any, res: any) => {
+  try {
+    const { email } = req.body;
+    await sendEmail(email);
+    res.status(200).json({ message: "Successfully sent!" });
+  } catch (error: any) {
+    console.log(error.message);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   sendUserDetails,
   updatePullRequestsForAllUsers,
+  contact,
 };
